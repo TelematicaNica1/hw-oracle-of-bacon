@@ -27,7 +27,7 @@ class OracleOfBacon
   end
 
   def initialize(api_key='')
-    # your code here
+
     @api_key = api_key
    @from = 'Kevin Bacon'
    @to = 'Kevin Bacon'
