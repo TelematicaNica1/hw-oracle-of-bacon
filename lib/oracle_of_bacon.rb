@@ -12,7 +12,7 @@ class OracleOfBacon
 
   attr_accessor :from, :to
   attr_reader :api_key, :response, :uri
-  
+
   include ActiveModel::Validations
   validates_presence_of :from
   validates_presence_of :to
@@ -21,10 +21,17 @@ class OracleOfBacon
 
   def from_does_not_equal_to
     # YOUR CODE HERE
+    if @from == @to
+      self.errors.add(:from, 'Los dos actores no pueden ser el mismo')
+    end
   end
 
   def initialize(api_key='')
     # your code here
+    @api_key = api_key
+   @from = 'Kevin Bacon'
+   @to = 'Kevin Bacon'
+   @uri = nil
   end
 
   def find_connections
@@ -39,13 +46,14 @@ class OracleOfBacon
       # your code here
     end
     # your code here: create the OracleOfBacon::Response object
+     @response = Response.new(xml)
   end
 
   def make_uri_from_arguments
     # your code here: set the @uri attribute to properly-escaped URI
     #   constructed from the @from, @to, @api_key arguments
   end
-      
+
   class Response
     attr_reader :type, :data
     # create a Response object from a string of XML markup.
@@ -61,7 +69,7 @@ class OracleOfBacon
         parse_error_response
       # your code here: 'elsif' clauses to handle other responses
       # for responses not matching the 3 basic types, the Response
-      # object should have type 'unknown' and data 'unknown response'         
+      # object should have type 'unknown' and data 'unknown response'
       end
     end
     def parse_error_response
@@ -70,4 +78,3 @@ class OracleOfBacon
     end
   end
 end
-
