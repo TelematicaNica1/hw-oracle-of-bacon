@@ -94,11 +94,12 @@ class OracleOfBacon
     end
     def parse_unknown_response
       @type = :unknown
-      @data = 'Tipo de respuesta no reconocido'
+      @data = 'Unknown response type'
     end
 
     def parse_spellcheck_response
       @type = :spellcheck
       @data = @doc.xpath('//match').map(&:text)
     end
+  end
 end
