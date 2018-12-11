@@ -76,6 +76,8 @@ class OracleOfBacon
       # object should have type 'unknown' and data 'unknown response'
       elsif ! @doc.xpath('/link').empty?
         parse_graph_response
+        elsif ! @doc.xpath('/spellcheck').empty?
+          parse_spellcheck_response
       else
         parse_unknown_response
       end
@@ -93,5 +95,10 @@ class OracleOfBacon
     def parse_unknown_response
       @type = :unknown
       @data = 'Tipo de respuesta no reconocido'
+    end
+
+    def parse_spellcheck_response
+      @type = :spellcheck
+      @data = @doc.xpath('//match').map(&:text)
     end
 end
